@@ -3,7 +3,7 @@ name: Deploy_MkDocs
 on:
   push:
     branches:
-      - gh-deploy  # Cambia esto si tu rama principal tiene otro nombre
+      - main  # Cambia esto si tu rama principal tiene otro nombre
 
 jobs:
   build:
