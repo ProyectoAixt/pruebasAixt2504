@@ -2,9 +2,9 @@ name: gh-deploy
 
 on:
   push:
-    branches: [ master ] # Dispara el flujo de trabajo cuando se hace push a la rama principal (ajusta si es diferente)
+    branches: [ gh-deploy ] # Dispara el flujo de trabajo cuando se hace push a la rama principal (ajusta si es diferente)
   pull_request:
-    branches: [ master ] # También se ejecuta en pull requests contra la rama principal
+    branches: [ gh-deploy ] # También se ejecuta en pull requests contra la rama principal
 
 jobs:
   build-and-deploy:
@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install mkdocs mkdocs-material # Asegúrate de incluir todos los temas y plugins que uses
+          pip install mkdocs mkdocs-material
 
       - name: Build MkDocs site
         run: mkdocs build
