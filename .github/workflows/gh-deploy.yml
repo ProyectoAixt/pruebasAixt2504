@@ -1,35 +1,32 @@
-name: gh-deploy
+name: Deploy_MkDocs
 
 on:
   push:
-    branches: [ gh-deploy ] # Dispara el flujo de trabajo cuando se hace push a la rama principal (ajusta si es diferente)
-  pull_request:
-    branches: [ gh-deploy ] # También se ejecuta en pull requests contra la rama principal
+    branches:
+      - main  # Cambia esto si tu rama principal tiene otro nombre
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'  # Cambia la versión según sea necesario
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install mkdocs mkdocs-material
+    - name: Install MkDocs and dependencies
+      run: |
+        pip install mkdocs mkdocs-material  # Instala MkDocs y el tema Material
 
-      - name: Build MkDocs site
-        run: mkdocs build --config-file mkdocs.yml
+    - name: Build the site
+      run: mkdocs build --config-file mkdocs.yml # Genera el sitio estático
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site # La carpeta donde MkDocs genera el sitio estático
-          force_orphan: true # Opcional: fuerza la creación de una rama 'gh-pages' independiente
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site  # Directorio donde MkDocs genera los archivos
