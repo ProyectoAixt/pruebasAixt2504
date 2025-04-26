@@ -3,7 +3,7 @@ name: Deploy_MkDocs
 on:
   push:
     branches:
-      - main  # Cambia esto si tu rama principal tiene otro nombre
+      - gh-deploy  # Cambia esto si tu rama principal tiene otro nombre
 
 jobs:
   build:
@@ -23,10 +23,10 @@ jobs:
         pip install mkdocs mkdocs-material  # Instala MkDocs y el tema Material
 
     - name: Build the site
-      run: mkdocs build --config-file mkdocs.yml # Genera el sitio estático
+      run: mkdocs gh-deploy --config-file mkdocs.yml --remote-branch gh-deploy
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site  # Directorio donde MkDocs genera los archivos
+        publish_dir: ./PRUEBASAIXT2504  # Directorio donde MkDocs genera los archivos
