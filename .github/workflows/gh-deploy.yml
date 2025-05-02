@@ -3,7 +3,7 @@ name: gh-deploy
 on:
   push:
     branches:
-      - main  # Cambia esto si tu rama principal tiene otro nombre
+      - gh-deploy  # Cambia esto si tu rama principal tiene otro nombre
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
         pip install mkdocs mkdocs-material  # Instala MkDocs y el tema Material
 
     - name: Build the site
-      run: mkdocs build --clean
+      run: mkdocs gh-deploy --config-file mkdocs.yml --force
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
